@@ -35,7 +35,7 @@ const App: FunctionComponent<PostsProp> = ({ posts }) => {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     let baseUrl = "http://localhost:54321";
     if (process.env.VERCEL_URL) {
-        baseUrl = `https://${process.env.VERCEL_URLL}`
+        baseUrl = `https://${process.env.VERCEL_URL}`
     }
     console.log(process.env.VERCEL_URL);
     
