@@ -4,8 +4,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import type { Post } from '@helpers/types';
 
-let baseUrl = "http://localhost:54321";
-
 type PostsProp = {
     posts: [Post]
 }
@@ -35,9 +33,11 @@ const App: FunctionComponent<PostsProp> = ({ posts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    if (process.env.Vercel_URL) {
-        baseUrl = `https://${process.env.Vercel_URL}`
+    let baseUrl = "http://localhost:54321";
+    if (process.env.VERCEL_URL) {
+        baseUrl = `https://${process.env.VERCEL_URLL}`
     }
+    console.log(process.env.VERCEL_URL);
     
     const res = await fetch(`${baseUrl}/api/posts`); // hardcoded, but we'll put this in firebase l8r
     if (res.status === 404) return { props: {} };
