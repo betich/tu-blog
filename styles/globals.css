@@ -6,9 +6,17 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+body {
+  padding: 50px;
+}
+
 a {
-  color: inherit;
-  text-decoration: none;
+  color: #ff4099;
+  text-decoration: underline;
+}
+
+.editor-area > div {
+  height: 350px;
 }
 
 * {
