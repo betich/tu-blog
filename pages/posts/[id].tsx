@@ -4,6 +4,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import type { PostProp, Post } from '@helpers/types';
 
+let baseUrl = "http://localhost:54321";
+
 const App: FunctionComponent<PostProp> = ({ post }) => {
     if (!post) return <h1>Not found</h1>;
 
@@ -26,11 +28,15 @@ const App: FunctionComponent<PostProp> = ({ post }) => {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     // prerenders page and passes props to the main component
 
-    if (!params) return ({ props: {post: undefined}});
+    if (!params) return ({ props: {post: {undefined}}});
 
-    const res = await fetch(`http://localhost:54321/api/posts/${params.id}`); // hardcoded, but we'll put this in firebase l8r
+    if (process.env.Vercel_URL) {
+        baseUrl = `https://${process.env.Vercel_URL}`
+    }
+
+    const res = await fetch(`${baseUrl}/api/posts/${params.id}`); // hardcoded, but we'll put this in firebase l8r
     
-    if (res.status === 404) return { props: {} };
+    if (res.status === 404) return { props: { post: undefined } };
 
     const post: Post = await res.json();
     return {
